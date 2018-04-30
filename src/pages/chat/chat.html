@@ -1,0 +1,18 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+
+        <ion-title>
+            Chat
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <div *ngFor="let msg of messagesList" (click)="openChatRoom(msg._id)">
+        <div class="left msg-users">{{msg._id}}</div>
+        <div class="right msg-total">{{msg.total}}</div>
+    </div>
+</ion-content>

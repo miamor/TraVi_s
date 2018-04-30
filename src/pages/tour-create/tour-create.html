@@ -1,0 +1,281 @@
+<ion-header>
+        <ion-navbar no-border-bottom>
+            <ion-title>Edit tour</ion-title>
+        </ion-navbar>
+    
+    </ion-header>
+    
+    <ion-content padding>
+    
+        <form #createTourForm="ngForm" novalidate>
+            <ion-list class="margin-less">
+                <ion-item>
+                    <ion-label fixed for="title">Title</ion-label>
+    
+                    <ion-input [(ngModel)]="formParams.title" type="text" id="title" name="title" placeholder="eg. Best of Vietnam and Cambodia 15 days"></ion-input>
+                </ion-item>
+    
+                <ion-item>
+                    <ion-label fixed for="destination">Destination</ion-label>
+    
+                    <ion-input [(ngModel)]="formParams.destination" type="text" id="destination" name="destination" placeholder="eg.  Hanoi - Halong Bay - Hoi An - Ho Chi Minh City - Can Tho - Chau Doc - Phnom Penh - Siem Reap"></ion-input>
+                </ion-item>
+    
+                <ion-item>
+                    <ion-label fixed for="duration">Duration</ion-label>
+    
+                    <ion-input [(ngModel)]="formParams.duration" type="text" id="duration" name="duration" placeholder="eg. 10 days/9 nights"></ion-input>
+                </ion-item>
+            </ion-list>
+    
+            <ion-grid>
+                <ion-row class="city_duration_wrap">
+                    <div class="label-col">
+                        <ion-label fixed>Details (by city)</ion-label>
+                    </div>
+                    <ion-col class="input-col">
+                        <ion-row class="city_duration" class="margin-less" *ngFor="let key of citys">
+                            <ion-col width-80>
+                                <ion-item>
+                                    <ion-input [(ngModel)]="formParams['destination_by_city'][key]['title']" type="text" name="destination_by_city_{{key}}_title"
+                                        placeholder="City"></ion-input>
+                                </ion-item>
+                            </ion-col>
+                            <ion-col width-20>
+                                <ion-item>
+                                    <ion-input [(ngModel)]="formParams['destination_by_city'][key]['days']" type="number" min="0" name="destination_by_city_{{key}}_days"
+                                        placeholder="Days"></ion-input>
+                                </ion-item>
+                            </ion-col>
+                            <div class="clearfix"></div>
+                        </ion-row>
+    
+                        <ion-row class="margin-less">
+                            <button (click)="addCity()">Add city</button>
+                        </ion-row>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+    
+    
+    
+            <ion-list>
+                <ion-item>
+                    <ion-label fixed for="departure">Departure</ion-label>
+    
+                    <ion-input [(ngModel)]="formParams.departure" type="text" id="departure" name="departure" placeholder="eg. Daily from Hanoi or Siem Reap"></ion-input>
+                </ion-item>
+    
+                <ion-item>
+                    <ion-label fixed for="overview">Overview</ion-label>
+    
+                    <ion-textarea [(ngModel)]="formParams.overview" id="overview" name="overview" placeholder="Overview"></ion-textarea>
+                </ion-item>
+                <ion-item>
+                    <ion-label fixed for="highlights">Highlights</ion-label>
+    
+                    <ion-textarea [(ngModel)]="formParams.highlights" id="highlights" name="highlights" placeholder="Highlights"></ion-textarea>
+                </ion-item>
+            </ion-list>
+    
+    
+    
+            <ion-grid class="margin-less">
+                <ion-row class="city_duration_wrap margin-less">
+                    <div class="label-col">
+                        <ion-label fixed class="label-name">Tour theme *</ion-label>
+                    </div>
+                    <ion-col class="input-col">
+                        <ion-list class="book-theme margin-less" radio-group [(ngModel)]="formParams.type" #type="ngModel" name="type" required>
+                            <ion-item class="margin-less" *ngFor="let theme of tourTheme">
+                                <ion-label>{{theme}}</ion-label>
+                                <ion-radio value="{{theme}}"></ion-radio>
+                            </ion-item>
+                            <p ion-text [hidden]="type.valid || submitted == false" color="danger" padding-left>
+                                Tour theme is required
+                            </p>
+                        </ion-list>
+    
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+    
+            <ion-grid class="margin-less">
+                <ion-row class="city_duration_wrap margin-less">
+                    <div class="label-col">
+                        <ion-label fixed class="label-name">Suitable for *</ion-label>
+                    </div>
+                    <ion-col class="input-col">
+                        <ion-item *ngFor="let suit of tourSuitable | keys">
+                            <ion-label fixed>{{suit.value}}</ion-label>
+    
+                            <ion-checkbox *ngIf="formParams.suitableActive[suit.key] == 1" checked (ionChange)="updateSuit(suit.key)"></ion-checkbox>
+                            <ion-checkbox *ngIf="formParams.suitableActive[suit.key] == 0" (ionChange)="updateSuit(suit.key)"></ion-checkbox>
+                        </ion-item>
+                        <p ion-text [hidden]="formParams.suitable.length == 0 || submitted == false" color="danger" padding-left>
+                            Suitable for is required
+                        </p>
+    
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+    
+            <ion-grid>
+                <ion-row class="city_duration_wrap">
+                    <div class="label-col">
+                        <ion-label fixed class="label-name">Tour object *</ion-label>
+                    </div>
+                    <ion-col class="input-col">
+                        <ion-item *ngFor="let obj of tourObject | keys">
+                            <ion-label fixed>{{obj.value}}</ion-label>
+    
+                            <ion-checkbox *ngIf="formParams.objectActive[obj.key] == 1" checked (ionChange)="updateObj(obj.key)"></ion-checkbox>
+                            <ion-checkbox *ngIf="formParams.objectActive[obj.key] == 0" (ionChange)="updateObj(obj.key)"></ion-checkbox>
+                        </ion-item>
+                        <p ion-text [hidden]="formParams.object.length == 0 || submitted == false" color="danger" padding-left>
+                            Tour object is required
+                        </p>
+    
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+    
+    
+    
+            <ion-grid>
+                <ion-row class="margin-less">
+                    <h5 class="col-sm-12">Itinerary</h5>
+                </ion-row>
+                <ion-row *ngFor="let key of itin" class="city_duration_wrap margin-less">
+                    <div class="label-col">
+                        Day plan #{{key}}
+                    </div>
+                    <ion-col class="input-col">
+                        <ion-item>
+                            <ion-input [(ngModel)]="formParams['itinerary'][key]['title']" type="text" name="itinerary_{{key}}_title" placeholder="Title day plan #{{key}}"></ion-input>
+                        </ion-item>
+                        <ion-item>
+                            <ion-textarea [(ngModel)]="formParams['itinerary'][key]['details']" id="itinerary_{{key}}_details" name="itinerary_{{key}}_details"
+                                placeholder="Details day plan #{{key}}"></ion-textarea>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
+    
+                <ion-row>
+                    <button (click)="addItin()">Add day plan</button>
+                </ion-row>
+    
+            </ion-grid>
+    
+    
+    
+            <ion-list class="margin-less">
+                <ion-item>
+                    <ion-label fixed for="price_unit" class="label-name">Price unit</ion-label>
+    
+                    <ion-select [(ngModel)]="formParams.price_unit" name="price_unit" id="price_unit">
+                        <ion-option value="triệu">triệu (vnđ)</ion-option>
+                        <ion-option value="$">$ US dollar</ion-option>
+                    </ion-select>
+                </ion-item>
+            </ion-list>
+    
+            <ion-grid>
+                <ion-row class="margin-less">
+                    <h5 class="col-sm-12">Packages</h5>
+                </ion-row>
+                <ion-row class="city_duration_wrap margin-less" *ngFor="let pack of tourPackages | keys">
+                    <div class="label-col">
+                        <ion-label class="label-name">{{pack.value}}</ion-label>
+                    </div>
+                    <ion-col class="input-col">
+                        <ion-item>
+                            <ion-label fixed>Activate this package</ion-label>
+                            <ion-checkbox *ngIf="formParams.packages_active[pack.key] == 1" checked (ionChange)="updatePackage(pack.key)"></ion-checkbox>
+                            <ion-checkbox *ngIf="formParams.packages_active[pack.key] == 0" (ionChange)="updatePackage(pack.key)"></ion-checkbox>
+                        </ion-item>
+    
+                        <ion-list *ngIf="formParams.packages_active[pack.key] != 0" class="margin-less">
+                            <ion-item>
+                                <ion-textarea [(ngModel)]="formParams['package'][pack.key]['des']" id="package_{{pack.key}}_des" name="package_{{pack.key}}_des"
+                                    placeholder="Description for package {{pack.value}}"></ion-textarea>
+    
+                            </ion-item>
+    
+                            <!--<ion-item *ngFor="let activateObj of formParams.object | keys" style="margin:5px 0">
+                                <ion-label fixed>
+                                    Price for {{activateObj.value}} (
+                                    <span *ngIf="formParams.price_unit == 'triệu'">triệu vnđ</span>
+                                    <span *ngIf="formParams.price_unit == 'usd'">$ US dolalr</span>)
+                                </ion-label>
+    
+                                <ion-input *ngIf="formParams.price_unit == 'triệu'" type="text" [(ngModel)]="formParams['package'][pack.key]['price'][activateObj.key]"
+                                    name="package_{{pack.key}}_price_{{activateObj.key}}"></ion-input>
+    
+                                <ion-input *ngIf="formParams.price_unit == '$'" type="text" [(ngModel)]="formParams['package'][pack.key]['price'][activateObj.key]"
+                                    name="package_{{pack.key}}_price_{{activateObj.key}}"></ion-input>
+                            </ion-item>-->
+    
+                            <div *ngFor="let obj of tourObject | keys">
+                                <ion-item *ngIf="formParams.objectActive[obj.key] == 1" style="margin:5px 0">
+                                    <ion-label fixed>
+                                        Price for {{obj.value}} (
+                                        <span *ngIf="formParams.price_unit == 'triệu'">triệu vnđ</span>
+                                        <span *ngIf="formParams.price_unit == 'usd'">$ US dolalr</span>)
+                                    </ion-label>
+    
+                                    <ion-input *ngIf="formParams.price_unit == 'triệu'" type="text" [(ngModel)]="formParams['package'][pack.key]['price'][obj.key]"
+                                        name="package_{{pack.key}}_price_{{obj.key}}" placeholder="Price for {{obj.value}} (triệu vnđ)"></ion-input>
+    
+                                    <ion-input *ngIf="formParams.price_unit == '$'" type="text" [(ngModel)]="formParams['package'][pack.key]['price'][obj.key]"
+                                        name="package_{{pack.key}}_price_{{obj.key}}" placeholder="Price for {{obj.value}} ($ US dolalr)"></ion-input>
+                                </ion-item>
+                            </div>
+                            <i *ngIf="formParams.price_unit == null || formParams.price_unit == undefined || formParams.price_unit.length == 0">Choose price unit!</i>
+                        </ion-list>
+    
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+    
+    
+    
+    
+            <ion-list>
+                <h5 class="col-sm-12">More</h5>
+    
+                <ion-item>
+                    <ion-label fixed for="price_includes">Price includes</ion-label>
+    
+                    <ion-textarea [(ngModel)]="formParams.price_includes" name="price_includes" id="price_includes"></ion-textarea>
+                </ion-item>
+    
+                <ion-item>
+                    <ion-label fixed for="price_excludes">Price excludes</ion-label>
+    
+                    <ion-textarea [(ngModel)]="formParams.price_excludes" name="price_excludes" id="price_excludes"></ion-textarea>
+                </ion-item>
+    
+                <ion-item>
+                    <ion-label fixed for="customer_cancels">Cancellation by customer</ion-label>
+    
+                    <ion-textarea [(ngModel)]="formParams.customer_cancels" name="customer_cancels" id="customer_cancels"></ion-textarea>
+                </ion-item>
+    
+                <ion-item>
+                    <ion-label fixed for="children_policys">Children policy</ion-label>
+    
+                    <ion-textarea [(ngModel)]="formParams.children_policys" name="children_policys" id="children_policys"></ion-textarea>
+                </ion-item>
+    
+            </ion-list>
+    
+    
+    
+            <div padding>
+                <button ion-button (click)="onCreateTour(createTourForm)" type="submit" block>Submit change</button>
+            </div>
+        </form>
+    
+    
+    </ion-content>

@@ -1,0 +1,51 @@
+page-tour-create {
+    ion-content {
+        background: #fff !important
+    }
+    .scroll-content {
+        padding-top: 5px !important
+    }
+    .grid {
+        padding: 0 !important
+    }
+    h5 {
+        font-size: 15px;
+        font-weight: 400;
+        margin: 10px 0 0
+    }
+    .label {
+        font-size: 13px;
+        color:#999
+    }
+    .city_duration_wrap .label-col, .city_duration_wrap .input-col{-webkit-flex-basis:auto!important;flex-basis:auto!important;-moz-flex-basis:auto!important;padding:0!important}
+    .city_duration_wrap .label-col{width:30%!important;padding-left:20px!important}
+    .city_duration_wrap .input-col{width:70%!important}
+    .city_duration_wrap .col{padding:0!important}
+    .item.item-md .checkbox-md{margin:6px 6px 9px 4px!important}
+    .label-name.label-md{margin-top:10px!important}
+    ion-row,
+    ion-list {
+        margin: 0 0 40px !important
+    }
+    .margin-less {
+        margin: 0 !important
+    }
+    .book-type ion-item,
+    .book-theme ion-item {
+        margin-left: 20px
+    }
+    .contact-info-fields {
+        position: relative;
+        background: #f2f2f2;
+        border: 1px solid #e2e2e2;
+        border-width: 1px 0;
+        margin: 10px -15px 15px;
+        padding: 6px 15px
+    }
+    .contact-info-fields .item-md {
+        background-color: transparent
+    }
+    /*.contact-info-fields .item-md.input-has-focus .input {
+        background-color: #fff
+    }*/
+}

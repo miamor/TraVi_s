@@ -1,0 +1,146 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title class="book-div" *ngIf="tour">
+            <button class="book-btn" ion-button (click)="editTour()" type="submit">Edit tour</button>
+            <div class="book-min-price">{{tour.minPrice}}</div>
+            <div class="clearfix"></div>
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <div class="tour-detail" *ngIf="tour">
+        <div class="tour-basic-info">
+            <h1>{{tour.title}}</h1>
+
+            <div class="tour-subtitle">
+                <div class="tour-destination">
+                    <ion-icon name="pin"></ion-icon> {{tour.destination}}
+                </div>
+                <div (click)="viewCompany(tour.company_id)" class="tour-host">
+                    <ion-icon name="at"></ion-icon> {{tour.company_title}}
+                </div>
+            </div>
+
+            <div class="tour-thumbs">
+                <img *ngFor="let thumb of tour.thumbs" [src]="thumb" />
+            </div>
+
+        </div>
+
+        <div #overview class="v-box tour-overview">
+            <h3 (click)="toggleVbox('overview')" class="v-box-title">
+                Overview
+                <ion-icon *ngIf="showVbox.overview" name="arrow-dropup"></ion-icon>
+                <ion-icon *ngIf="!showVbox.overview" name="arrow-dropright"></ion-icon>
+            </h3>
+            <div *ngIf="showVbox.overview" class="v-box-content">
+                <div class="tour-overview-content">{{tour.overview}}</div>
+
+                <div class="tour-overview-one">
+                    <ion-icon name="clock"></ion-icon> {{tour.duration}}</div>
+                <div class="tour-overview-one">
+                    <ion-icon name="people"></ion-icon> {{tour.objectStr}}</div>
+                <div class="tour-overview-one">
+                    <ion-icon name="calendar"></ion-icon> Departure: {{tour.departure}}</div>
+                <div class="tour-overview-one">
+                    <ion-icon name="partly-sunny"></ion-icon> Theme: {{tour.type}}</div>
+                <div class="tour-overview-one">
+                    <ion-icon name="checkmark"></ion-icon> Suitable: {{tour.suitableStr}}</div>
+            </div>
+
+            <div *ngIf="showVbox.overview" class="tour-highlight">
+                <h4>Highlights</h4>
+                <ul>
+                    <li *ngFor="let hl of tour.highlight">
+                        <ion-icon name="checkmark"></ion-icon> {{hl}}</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="v-box tour-itinerary">
+            <h3 (click)="toggleVbox('itinerary')" class="v-box-title">
+                Itinerary
+                <ion-icon *ngIf="showVbox.itinerary" name="arrow-dropup"></ion-icon>
+                <ion-icon *ngIf="!showVbox.itinerary" name="arrow-dropright"></ion-icon>
+            </h3>
+            <div *ngIf="showVbox.itinerary" class="v-box-content">
+                <ul>
+                    <li class="m-box" *ngFor="let itn of tour.itinerary">
+                        <h4 class="m-box-title iti-title">{{itn.title}}</h4>
+                        <div class="m-box-content iti-content">{{itn.details}}</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="v-box tour-priceboard">
+            <h3 (click)="toggleVbox('price')" class="v-box-title">
+                Price &amp; Inclusion
+                <ion-icon *ngIf="showVbox.price" name="arrow-dropup"></ion-icon>
+                <ion-icon *ngIf="!showVbox.price" name="arrow-dropright"></ion-icon>
+            </h3>
+            <div *ngIf="showVbox.price" class="v-box-content">
+                <ul>
+                    <li class="m-box one-package" *ngFor="let pPackObj of tour.packageAr">
+                        <h4 class="m-box-title package_title">{{pPackObj.title}}</h4>
+                        <div class="m-box-content package_content">
+                            <ul class="package_details">
+                                <li class="pack-detail-one" *ngFor="let pDt of pPackObj.des">
+                                    <ion-icon name="checkmark"></ion-icon> {{pDt}}</li>
+                            </ul>
+
+                            <div class="package_price">
+                                <div class="package_price_obj" *ngFor="let obj of tour.object | keys">
+                                    <div class="obj_title">{{obj.value}}</div>
+                                    <div class="obj_price">{{pPackObj.price[obj.key]}}</div>
+                                    <div *ngIf="pPackObj.old_price != undefined && pPackObj.old_price.length > 0 && pPackObj.old_price[obj.key].length > 0" class="obj_old_price">{{pPackObj.old_price[obj.key]}}</div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+                <ul class="tour-inclusion">
+                    <li *ngFor="let service of tour.inclusion">
+                        <ion-icon *ngIf="service[0] == 'Meals'" name="restaurant"></ion-icon>
+                        <ion-icon *ngIf="service[0] == 'Transportation'" name="car"></ion-icon>
+                        <ion-icon *ngIf="service[0] == 'Accommodation'" name="home"></ion-icon>
+                        <h5>{{service[0]}}</h5>
+                        <div class="service-one-content">{{service[1]}}</div>
+                    </li>
+                    <li class="price_include" *ngIf="tour.price_include.length > 0">
+                        <ion-icon name="checkmark-circle"></ion-icon>
+                        <h5>Price includes</h5>
+                        <ul>
+                            <li *ngFor="let incl of tour.price_include" class="incl-one">{{incl}}</li>
+                        </ul>
+                    </li>
+                    <li class="price_exclude" *ngIf="tour.price_exclude.length > 0">
+                        <ion-icon name="remove-circle"></ion-icon>
+                        <h5>Price excludes</h5>
+                        <ul>
+                            <li *ngFor="let excl of tour.price_exclude" class="excl-one">{{excl}}</li>
+                        </ul>
+                    </li>
+                    <li class="cancelation" *ngIf="tour.customer_cancel.length > 0">
+                        <ion-icon name="close-circle"></ion-icon>
+                        <h5>Cancellation by Customer</h5>
+                        <ul>
+                            <li *ngFor="let cancel of tour.customer_cancel" class="cancel-one">{{cancel}}</li>
+                        </ul>
+                    </li>
+                    <li class="cancelation" *ngIf="tour.customer_cancel.length > 0">
+                        <ion-icon name="body"></ion-icon>
+                        <h5>Children policy</h5>
+                        <ul>
+                            <li *ngFor="let cp of tour.children_policy" class="cp-one">{{cp}}</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</ion-content>

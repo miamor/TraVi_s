@@ -1,0 +1,70 @@
+<ion-header>
+    <ion-navbar no-border-bottom>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+
+        <ion-title>
+            Tour bạn quản lý
+        </ion-title>
+
+    </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+    <div #tourList [hidden]="shownTours === 0">
+
+        <div class="tour-one highlight-{{tour.isHighlight}}" *ngFor="let tour of tours" [hidden]="tour.hide" #slidingItem>
+
+            <div (click)="goToTourDetail(tour)">
+                <span *ngIf="tour.isHighlight == 1" class="label label-highlight">Highlight</span>
+                <div class="tour-one-thumb">
+                    <img [src]="tour.thumb" />
+                    <div class="tour-one-rank">#<span>{{tour.rank}}</span></div>
+                    <button (click)="refreshItem(tour)">Refresh</button>
+                </div>
+                <div class="tour-one-info">
+                    <h3>{{tour.title}}</h3>
+                    <div class="tour-one-dest">
+                        <ion-icon name="pin"></ion-icon>
+                        {{tour.destination}}
+                    </div>
+                    <div class="tour-one-price">{{tour.minPrice}}</div>
+                    <div class="tour-one-rate">
+                        Excellent
+                        <span class="rate-score">9.3</span>
+                        <span class="rate-num">88</span> reviews
+                    </div>
+                    <div class="tour-one-type">
+                        {{tour.type}}
+                    </div>
+                    <div class="tour-one-more">
+                        <div class="tour-one-object">{{tour.object}}</div>
+                        <div class="tour-one-duration">{{tour.daysNum}}</div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <ion-list-header [hidden]="shownTours > 0">
+        No tours Found
+    </ion-list-header>
+
+    <ion-fab bottom right #fab>
+        <button ion-fab (click)="goToTourCreate()">
+            <ion-icon name="plus"></ion-icon>
+        </button>
+    </ion-fab>
+
+
+</ion-content>

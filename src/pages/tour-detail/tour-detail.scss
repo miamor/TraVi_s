@@ -1,0 +1,216 @@
+/*h3.v-box-title{background: color($colors, primary);color:#fff;margin:0 -16px 10px;font-size:18px;padding:8px 16px}
+*/
+
+page-tour-detail {
+    .scroll-content {
+        *background: #fff!important;
+        padding: 16px 0!important
+    }
+    .v-box-title {
+        font-size: 17px!important
+    }
+    h1 {
+        font-size: 21px!important;
+        color: #14b66a
+    }
+    .tour-basic-info {
+        background: #fff;
+        border: 1px solid #dedede;
+        border-width: 1px 0;
+        padding: 12px 10px 0
+    }
+    .v-box {
+        background: #fff;
+        border: 1px solid #dedede;
+        border-width: 1px 0;
+        margin: 20px 0;
+        padding: 10px 10px 10px
+    }
+    .tour-detail {
+        padding-bottom: 30px;
+    }
+    .tour-overview-content {
+        margin-bottom: 8px
+    }
+    .tour-overview-content,
+    .tour-highlight li,
+    .pack-detail-one {
+        text-align: justify
+    }
+    .tour-destination {
+        margin: 0 -15px 5px;
+        padding: 5px 15px;
+        background: #f5f7fa
+    }
+    .tour-thumbs {
+        margin: 10px -10px 0;
+        height: 150px;
+        overflow: hidden
+    }
+    .tour-thumbs img:first-child {
+        width: 50%;
+        float: left;
+        height: 150px
+    }
+    .tour-thumbs img:not(:first-child) {
+        width: 25%;
+        float: left;
+        height: 75px;
+        opacity: .7
+    }
+    .tour-thumbs img {
+        position: relative
+    }
+    /*.tour-thumbs img:not(:first-child):after {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, .7)
+    }*/
+    .tour-thumbs img:hover {
+        opacity: 1
+    }
+    .tour-highlight {
+        margin-top: 15px
+    }
+    .tour-highlight h4 {
+        color: color($colors, primary)
+    }
+    .tour-highlight ul {
+        padding-left: 10px
+    }
+    .tour-highlight li,
+    .pack-detail-one {
+        position: relative;
+        padding-left: 20px
+    }
+    .tour-highlight li .icon,
+    .pack-detail-one .icon {
+        position: absolute;
+        left: 0;
+        font-weight: 600;
+        margin-top: 2px;
+        color: color($colors, primary)!important;
+    }
+    .tour-overview-one {
+        border-radius: 3px;
+        background: #f3f3f3;
+        ;
+        color: #484848;
+        font-size: 13px;
+        padding: 4px 10px 5px;
+        margin: 3px 0
+    }
+    .tour-overview-one .icon {
+        width: 14px!important;
+        float: left;
+        margin: 3px 3px 0 0
+    }
+    h4 {
+        font-size: 15px!important
+    }
+    h5 {
+        font-size: 14px!important;
+        margin: 4px 0!important
+    }
+    .tour-inclusion {
+        margin-top: 10px
+    }
+    .tour-inclusion>li {
+        padding: 8px 5px 8px 45px;
+        border-bottom: 1px dashed #ddd;
+        position: relative
+    }
+    .tour-inclusion>li:last-child {
+        border: 0
+    }
+    .tour-inclusion>li>.icon {
+        position: absolute;
+        top: 10px;
+        left: 0;
+        font-size: 40px
+    }
+    .tour-inclusion>li>ul {
+        list-style: disc!important;
+        padding-left: 20px
+    }
+    /*.book-div {
+        position: fixed;
+        display: block;
+        left: 0;
+        right: 0;
+        top: 56px;
+        height: 50px;
+        background: #fff;
+        border-bottom: 1px solid #eaeaea;
+        box-shadow: 0 -3px 3px 3px rgba(0, 0, 0, .13);
+        z-index: 99;
+        padding: 2px 10px
+    }*/
+    ion-navbar .toolbar-background-md {
+        background: #fff!important;
+    }
+    ion-navbar.toolbar {
+        *border-bottom: 1px solid #e5e5e5;
+        box-shadow: 0 -4px 4px 4px rgba(0, 0, 0, .28);
+    }
+    .toolbar-title-md {
+        padding: 0!important
+    }
+    ion-navbar .back-button {
+        padding: 0!important;
+        margin-left: 0!important
+    }
+    ion-navbar .ion-md-arrow-back:before {
+        color: #222!important
+    }
+    .book-btn {
+        float: left;
+        box-shadow: none!important
+    }
+    .book-min-price {
+        float: right;
+        line-height: 43px;
+        color: color($colors, danger);
+        font-weight: 600;
+        font-size: 22px;
+        padding-right: 5px
+    }
+    .m-box {
+        border: 1px solid #e3e3e3
+    }
+    .m-box+.m-box {
+        margin-top: -1px
+    }
+    .m-box-content {
+        padding: 10px
+    }
+    .m-box-title {
+        background: #e8eaf0;
+        margin: 0!important;
+        padding: 7px 10px 8px
+    }
+    .package_price_obj .obj_title {
+        float: left;
+        font-weight: 400
+    }
+    .package_price_obj .obj_price {
+        float: right;
+        color: color($colors, danger);
+        font-weight: 600
+    }
+    .package_price_obj .obj_old_price {
+        float: right;
+        margin-right: 10px;
+        text-decoration: line-through;
+        color: #444
+    }
+    .package_details {
+        border-bottom: 1px dashed #e3e3e3;
+        padding: 0 0 8px 10px;
+        margin-bottom: 8px
+    }
+}

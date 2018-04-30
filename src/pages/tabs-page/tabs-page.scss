@@ -1,0 +1,11 @@
+.tabbar {
+    justify-content: center;
+}
+
+.tab-button {
+    max-width: 200px;
+}
+
+.tab-button:not(#tab-t0-0):not(#tab-t0-1):not(#tab-t0-2):not(#tab-t0-3) {
+    display: none!important
+}
